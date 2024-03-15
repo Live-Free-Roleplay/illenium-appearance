@@ -2,10 +2,10 @@ Config = {}
 
 Config.Debug = false
 
-Config.ClothingCost = 100
-Config.BarberCost = 100
-Config.TattooCost = 100
-Config.SurgeonCost = 100
+Config.ClothingCost = 120
+Config.BarberCost = 50
+Config.TattooCost = 350
+Config.SurgeonCost = 50000
 
 Config.ChargePerTattoo = true -- Charge players per tattoo. Config.TattooCost will become the cost of 1 tattoo. The cost can be overridden by adding `cost` key in shared/tattoos.lua for specific tattoos
 
@@ -163,7 +163,7 @@ Config.TargetConfig = {
         model = "mp_g_m_pros_01",
         scenario = "WORLD_HUMAN_STAND_MOBILE",
         icon = "fas fa-sign-in-alt",
-        label = "Open Job / Gang Clothes Menu",
+        label = "Open Clothes Menu",
         distance = 3
     },
     ["playeroutfitroom"] = {
@@ -601,7 +601,7 @@ Config.PlayerOutfitRooms = {
 }
 
 Config.Outfits = {
-    ["police"] = {
+    --[[["police"] = {
         ["Male"] = {
             {
                 name = "Short Sleeve",
@@ -936,7 +936,7 @@ Config.Outfits = {
                 grades = {3, 4},
             }
         }
-    }
+    }--]]
 }
 
 Config.InitialPlayerClothes = {
