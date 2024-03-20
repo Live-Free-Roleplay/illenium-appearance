@@ -43,6 +43,7 @@ function Radial.AddOption(currentZone)
         clothingRoom = {"illenium-appearance:client:OpenClothingRoom", _L("menu.title")},
         playerOutfitRoom = {"illenium-appearance:client:OpenPlayerOutfitRoom", _L("menu.outfitsTitle")},
         clothing = {"illenium-appearance:client:openClothingShopMenu", _L("menu.clothingShopTitle")},
+        job_clothing = {"illenium-appearance:client:openJobClothingShopMenu", _L("menu.jobClothingShopTitle")},
         barber = {"illenium-appearance:client:OpenBarberShop", _L("menu.barberShopTitle")},
         tattoo = {"illenium-appearance:client:OpenTattooShop", _L("menu.tattooShopTitle")},
         surgeon = {"illenium-appearance:client:OpenSurgeonShop", _L("menu.surgeonShopTitle")},

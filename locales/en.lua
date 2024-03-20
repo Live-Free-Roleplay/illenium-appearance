@@ -268,6 +268,7 @@ Locales["en"] = {
         title = "Clothing Room",
         outfitsTitle = "Player Outfits",
         clothingShopTitle = "Clothing Shop",
+        jobClothingShopTitle = "Locker Room",
         barberShopTitle = "Barber Shop",
         tattooShopTitle = "Tattoo Shop",
         surgeonShopTitle = "Surgeon Shop"
@@ -276,7 +277,22 @@ Locales["en"] = {
         title = "Buy Clothing - $%d",
         titleNoPrice = "Change Clothing",
         options = {
-            title = "👔 | Clothing Store Options",
+            title = "👔 | Clothing Store",
+            description = "Pick from a wide range of items to wear"
+        },
+        outfits = {
+            title = "👔 | Outfit Options",
+            civilian = {
+                title = "Civilian Outfit",
+                description = "Put on your clothes"
+            }
+        }
+    },
+    job_clothing = {
+        title = "Choose Clothing",
+        titleNoPrice = "Change Clothing",
+        options = {
+            title = "👔 | Locker Room",
             description = "Pick from a wide range of items to wear"
         },
         outfits = {
@@ -321,6 +337,7 @@ Locales["en"] = {
     },
     textUI = {
         clothing = "Clothing Store - Price: $%d",
+        job_clothing = "Locker Room",
         barber = "Barber - Price: $%d",
         tattoo = "Tattoo Shop - Price: $%d",
         surgeon = "Plastic Surgeon - Price: $%d",

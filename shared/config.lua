@@ -127,6 +127,13 @@ Config.Blips = {
         Color = 4,
         Scale = 0.7,
         Name = "Plastic Surgeon",
+    },
+    ["job_clothing"] = {
+        Show = false,
+        Sprite = 366,
+        Color = 47,
+        Scale = 0.7,
+        Name = "Locker Room",
     }
 }
 
@@ -136,6 +143,13 @@ Config.TargetConfig = {
         scenario = "WORLD_HUMAN_STAND_MOBILE",
         icon = "fas fa-tshirt",
         label = "Open Clothing Store",
+        distance = 3
+    },
+    ["job_clothing"] = {
+        model = "s_f_m_shop_high",
+        scenario = "WORLD_HUMAN_STAND_MOBILE",
+        icon = "fas fa-tshirt",
+        label = "Open Locker Room",
         distance = 3
     },
     ["barber"] = {
@@ -555,14 +569,53 @@ Config.Stores = {
             vector3(293.56317138672, -572.60675048828, 43.26),
             vector3(296.28656005859, -570.330078125, 43.26)
         }
+    },
+    {
+        type = "job_clothing",
+        coords = vector4(461.4, -998.0, 30.2, 193.4), -- MRPD
+        size = vector3(3, 3, 3),
+        rotation = 45,
+        usePoly = false,
+        points = {
+            vector3(298.84417724609, -572.92205810547, 43.26),
+            vector3(296.39556884766, -575.65942382812, 43.26),
+            vector3(293.56317138672, -572.60675048828, 43.26),
+            vector3(296.28656005859, -570.330078125, 43.26)
+        }
+    },
+    {
+        type = "job_clothing",
+        coords = vector4(1840.5966, 3679.7295, 34.1893, 193.4), -- BCSO
+        size = vector3(2, 2, 2),
+        rotation = 45,
+        usePoly = false,
+        points = {
+            vector3(298.84417724609, -572.92205810547, 43.26),
+            vector3(296.39556884766, -575.65942382812, 43.26),
+            vector3(293.56317138672, -572.60675048828, 43.26),
+            vector3(296.28656005859, -570.330078125, 43.26)
+        }
+    },
+    {
+        type = "job_clothing",
+        coords = vector4(300.8565, -597.4988, 43.2841, 193.4), -- Pillbox
+        size = vector3(2, 2, 2),
+        rotation = 45,
+        usePoly = false,
+        points = {
+            vector3(298.84417724609, -572.92205810547, 43.26),
+            vector3(296.39556884766, -575.65942382812, 43.26),
+            vector3(293.56317138672, -572.60675048828, 43.26),
+            vector3(296.28656005859, -570.330078125, 43.26)
+        }
     }
 }
 
 
 Config.ClothingRooms = {
-    {
+    --[[{
         job = "police",
-        coords = vector4(454.91, -990.89, 30.69, 193.4),
+        coords = vector4(461.4, -998.0, 30.2, 193.4),
         size = vector3(4, 4, 4),
         rotation = 45,
         usePoly = false,
@@ -576,15 +629,15 @@ Config.ClothingRooms = {
             vector3(454.35513305664, -988.46459960938, 30.69),
             vector3(460.4231262207, -987.94573974609, 30.69)
         }
-    }
+    }--]]
 }
 
 
 Config.PlayerOutfitRooms = {
     -- Sample outfit room config
---[[    {
+    --[[{
         job = "police",
-        coords = vector4(287.28, -573.41, 43.16, 79.61),
+        coords = vector4(461.4, -998.0, 30.2, 0),
         size = vector3(4, 4, 4),
         rotation = 45,
         usePoly = false,
@@ -595,9 +648,9 @@ Config.PlayerOutfitRooms = {
             vector3(289.0, -574.75, 43.16)
         },
         citizenIDs = {
-            "BHH65156"
+            
         }
-    }]]--
+    }--]]
 }
 
 Config.Outfits = {
