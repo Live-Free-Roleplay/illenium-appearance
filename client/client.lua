@@ -156,6 +156,22 @@ function OpenShop(config, isPedMenu, shopType)
     end, shopType)
 end
 
+function OpenJobShop(config, isPedMenu, shopType)
+    client.startPlayerCustomization(function(appearance)
+        if appearance then
+            TriggerServerEvent("illenium-appearance:server:saveAppearance", appearance)
+        else
+            lib.notify({
+                title = _L("cancelled.title"),
+                description = _L("cancelled.description"),
+                type = "inform",
+                position = Config.NotifyOptions.position
+            })
+        end
+        Framework.CachePed()
+    end, config)
+end
+
 local function OpenClothingShop(isPedMenu)
     local config = GetDefaultConfig()
     config.components = true
@@ -171,7 +187,23 @@ local function OpenClothingShop(isPedMenu)
     OpenShop(config, isPedMenu, "clothing")
 end
 
+local function OpenJobClothingShop(isPedMenu)
+    local config = GetDefaultConfig()
+    config.components = true
+    config.props = true
+
+    if isPedMenu then
+        config.ped = true
+        config.headBlend = true
+        config.faceFeatures = true
+        config.headOverlays = true
+        config.tattoos = not Config.RCoreTattoosCompatibility and true
+    end
+    OpenJobShop(config, isPedMenu, "clothing")
+end
+
 RegisterNetEvent("illenium-appearance:client:openClothingShop", OpenClothingShop)
+RegisterNetEvent("illenium-appearance:client:openJobClothingShop", OpenJobClothingShop)
 
 RegisterNetEvent("illenium-appearance:client:importOutfitCode", function()
     local response = lib.inputDialog(_L("outfits.import.title"), {
@@ -624,11 +656,111 @@ function OpenMenu(isPedMenu, menuType, menuData)
     lib.showContext(mainMenuID)
 end
 
+function OpenJobMenu(isPedMenu, menuType, menuData)
+    local mainMenuID = "illenium_appearance_main_menu"
+    local mainMenu = {
+        id = mainMenuID
+    }
+    local menuItems = {}
+
+    local outfits = lib.callback.await("illenium-appearance:server:getOutfits", false)
+    local changeOutfitMenuID = "illenium_appearance_change_outfit_menu"
+    local updateOutfitMenuID = "illenium_appearance_update_outfit_menu"
+    local deleteOutfitMenuID = "illenium_appearance_delete_outfit_menu"
+    local generateOutfitCodeMenuID = "illenium_appearance_generate_outfit_code_menu"
+
+    RegisterChangeOutfitMenu(changeOutfitMenuID, mainMenuID, outfits)
+    RegisterUpdateOutfitMenu(updateOutfitMenuID, mainMenuID, outfits)
+    RegisterDeleteOutfitMenu(deleteOutfitMenuID, mainMenuID, outfits, "illenium-appearance:client:deleteOutfit")
+    RegisterGenerateOutfitCodeMenu(generateOutfitCodeMenuID, mainMenuID, outfits)
+    local outfitMenuItems = {
+        {
+            title = _L("outfits.change.title"),
+            description = _L("outfits.change.pDescription"),
+            menu = changeOutfitMenuID
+        },
+        {
+            title = _L("outfits.update.title"),
+            description = _L("outfits.update.description"),
+            menu = updateOutfitMenuID
+        },
+        {
+            title = _L("outfits.save.menuTitle"),
+            description = _L("outfits.save.description"),
+            event = "illenium-appearance:client:saveOutfit"
+        },
+        {
+            title = _L("outfits.generate.title"),
+            description = _L("outfits.generate.description"),
+            menu = generateOutfitCodeMenuID
+        },
+        {
+            title = _L("outfits.delete.title"),
+            description = _L("outfits.delete.mDescription"),
+            menu = deleteOutfitMenuID
+        },
+        {
+            title = _L("outfits.import.menuTitle"),
+            description = _L("outfits.import.description"),
+            event = "illenium-appearance:client:importOutfitCode"
+        }
+    }
+    if menuType == "default" then
+        local header = string.format(_L("job_clothing.title"))
+        if isPedMenu then
+            header = _L("job_clothing.titleNoPrice")
+        end
+        mainMenu.title = _L("job_clothing.options.title")
+        menuItems[#menuItems + 1] = {
+            title = header,
+            description = _L("job_clothing.options.description"),
+            event = "illenium-appearance:client:openJobClothingShop",
+            args = isPedMenu
+        }
+        for i = 0, #outfitMenuItems, 1 do
+            menuItems[#menuItems + 1] = outfitMenuItems[i]
+        end
+    elseif menuType == "outfit" then
+        mainMenu.title = _L("job_clothing.outfits.title")
+        for i = 0, #outfitMenuItems, 1 do
+            menuItems[#menuItems + 1] = outfitMenuItems[i]
+        end
+    elseif menuType == "job-outfit" then
+        mainMenu.title = _L("job_clothing.outfits.title")
+        menuItems[#menuItems + 1] = {
+            title = _L("job_clothing.outfits.civilian.title"),
+            description = _L("job_clothing.outfits.civilian.description"),
+            event = "illenium-appearance:client:reloadSkin",
+            args = true
+        }
+
+        local workOutfitsMenuID = "illenium_appearance_work_outfits_menu"
+        RegisterWorkOutfitsListMenu(workOutfitsMenuID, mainMenuID, menuData)
+
+        menuItems[#menuItems + 1] = {
+            title = _L("jobOutfits.title"),
+            description = _L("jobOutfits.description"),
+            menu = workOutfitsMenuID
+        }
+    end
+    mainMenu.options = menuItems
+
+    lib.registerContext(mainMenu)
+    lib.showContext(mainMenuID)
+end
+
 RegisterNetEvent("illenium-appearance:client:openClothingShopMenu", function(isPedMenu)
     if type(isPedMenu) == "table" then
         isPedMenu = false
     end
     OpenMenu(isPedMenu, "default")
+end)
+
+RegisterNetEvent("illenium-appearance:client:openJobClothingShopMenu", function(isPedMenu)
+    if type(isPedMenu) == "table" then
+        isPedMenu = false
+    end
+    OpenJobMenu(isPedMenu, "default")
 end)
 
 RegisterNetEvent("illenium-appearance:client:OpenBarberShop", OpenBarberShop)

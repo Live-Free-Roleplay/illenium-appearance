@@ -43,6 +43,8 @@ local function onStoreEnter(data)
         local prefix = Config.UseRadialMenu and "" or "[E] "
         if currentZone.name == "clothing" then
             lib.showTextUI(prefix .. string.format(_L("textUI.clothing"), Config.ClothingCost), Config.TextUIOptions)
+        elseif currentZone.name == "job_clothing" then
+            lib.showTextUI(prefix .. string.format(_L("textUI.job_clothing")), Config.TextUIOptions)
         elseif currentZone.name == "barber" then
             lib.showTextUI(prefix .. string.format(_L("textUI.barber"), Config.BarberCost), Config.TextUIOptions)
         elseif currentZone.name == "tattoo" then
@@ -158,6 +160,8 @@ local function ZonesLoop()
                     OpenOutfitRoom(outfitRoom)
                 elseif currentZone.name == "clothing" then
                     TriggerEvent("illenium-appearance:client:openClothingShopMenu")
+                elseif currentZone.name == "job_clothing" then
+                    TriggerEvent("illenium-appearance:client:openJobClothingShopMenu")
                 elseif currentZone.name == "barber" then
                     OpenBarberShop()
                 elseif currentZone.name == "tattoo" then

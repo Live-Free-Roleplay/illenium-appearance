@@ -2,10 +2,10 @@ Config = {}
 
 Config.Debug = false
 
-Config.ClothingCost = 100
-Config.BarberCost = 100
-Config.TattooCost = 100
-Config.SurgeonCost = 100
+Config.ClothingCost = 120
+Config.BarberCost = 50
+Config.TattooCost = 350
+Config.SurgeonCost = 50000
 
 Config.ChargePerTattoo = true -- Charge players per tattoo. Config.TattooCost will become the cost of 1 tattoo. The cost can be overridden by adding `cost` key in shared/tattoos.lua for specific tattoos
 
@@ -29,17 +29,17 @@ Config.OutfitCodeLength = 10
 Config.UseRadialMenu = false
 Config.UseOxRadial = false -- Set to true to use ox_lib radial menu, both this and UseRadialMenu must be true 
 
-Config.EnablePedsForShops = true
-Config.EnablePedsForClothingRooms = true
-Config.EnablePedsForPlayerOutfitRooms = true
+Config.EnablePedsForShops = false
+Config.EnablePedsForClothingRooms = false
+Config.EnablePedsForPlayerOutfitRooms = false
 
 Config.EnablePedMenu = true
-Config.PedMenuGroup = "group.admin"
+Config.PedMenuGroup = "group.leadadmin"
 
 Config.EnableJobOutfitsCommand = false -- Enables /joboutfits and /gangoutfits commands
 
 Config.ShowNearestShopOnly = false
-Config.HideRadar = false -- Hides the minimap while the appearance menu is open
+Config.HideRadar = true -- Hides the minimap while the appearance menu is open
 Config.NearestShopBlipUpdateDelay = 10000
 
 Config.InvincibleDuringCustomization = true
@@ -51,7 +51,7 @@ Config.TrackerClothingOptions = {
 }
 
 Config.NewCharacterSections = {
-    Ped = true,
+    Ped = false,
     HeadBlend = true,
     FaceFeatures = true,
     HeadOverlays = true,
@@ -73,6 +73,11 @@ Config.ReloadSkinCooldown = 5000
 
 Config.AutomaticFade = false -- Enables automatic fading and hides the Fade section from Hair
 
+-- ACE Permissions Config
+Config.EnableACEPermissions = false
+Config.ACEResetCooldown = 5000
+Config.ACEListCooldown = 60 * 60 * 1000 -- 1 Hour
+
 Config.DisableComponents = {
     Masks = false,
     UpperBody = false,
@@ -93,9 +98,6 @@ Config.DisableProps = {
     Watches = false,
     Bracelets = false
 }
-
----@type string[]
-Config.Aces = {} -- list of ace permissions used for blacklisting
 
 Config.Blips = {
     ["clothing"] = {
@@ -125,6 +127,13 @@ Config.Blips = {
         Color = 4,
         Scale = 0.7,
         Name = "Plastic Surgeon",
+    },
+    ["job_clothing"] = {
+        Show = false,
+        Sprite = 366,
+        Color = 47,
+        Scale = 0.7,
+        Name = "Locker Room",
     }
 }
 
@@ -134,6 +143,13 @@ Config.TargetConfig = {
         scenario = "WORLD_HUMAN_STAND_MOBILE",
         icon = "fas fa-tshirt",
         label = "Open Clothing Store",
+        distance = 3
+    },
+    ["job_clothing"] = {
+        model = "s_f_m_shop_high",
+        scenario = "WORLD_HUMAN_STAND_MOBILE",
+        icon = "fas fa-tshirt",
+        label = "Open Locker Room",
         distance = 3
     },
     ["barber"] = {
@@ -161,7 +177,7 @@ Config.TargetConfig = {
         model = "mp_g_m_pros_01",
         scenario = "WORLD_HUMAN_STAND_MOBILE",
         icon = "fas fa-sign-in-alt",
-        label = "Open Job / Gang Clothes Menu",
+        label = "Open Clothes Menu",
         distance = 3
     },
     ["playeroutfitroom"] = {
@@ -543,8 +559,47 @@ Config.Stores = {
     },
     {
         type = "surgeon",
-        coords = vector4(298.78, -572.81, 43.26, 114.27),
+        coords = vector4(325.45, -571.52, 43.28, 161.57),
         size = vector3(4, 4, 4),
+        rotation = 45,
+        usePoly = false,
+        points = {
+            vector3(298.84417724609, -572.92205810547, 43.26),
+            vector3(296.39556884766, -575.65942382812, 43.26),
+            vector3(293.56317138672, -572.60675048828, 43.26),
+            vector3(296.28656005859, -570.330078125, 43.26)
+        }
+    },
+    {
+        type = "job_clothing",
+        coords = vector4(461.4, -998.0, 30.2, 193.4), -- MRPD
+        size = vector3(3, 3, 3),
+        rotation = 45,
+        usePoly = false,
+        points = {
+            vector3(298.84417724609, -572.92205810547, 43.26),
+            vector3(296.39556884766, -575.65942382812, 43.26),
+            vector3(293.56317138672, -572.60675048828, 43.26),
+            vector3(296.28656005859, -570.330078125, 43.26)
+        }
+    },
+    {
+        type = "job_clothing",
+        coords = vector4(1840.5966, 3679.7295, 34.1893, 193.4), -- BCSO
+        size = vector3(2, 2, 2),
+        rotation = 45,
+        usePoly = false,
+        points = {
+            vector3(298.84417724609, -572.92205810547, 43.26),
+            vector3(296.39556884766, -575.65942382812, 43.26),
+            vector3(293.56317138672, -572.60675048828, 43.26),
+            vector3(296.28656005859, -570.330078125, 43.26)
+        }
+    },
+    {
+        type = "job_clothing",
+        coords = vector4(300.8565, -597.4988, 43.2841, 193.4), -- Pillbox
+        size = vector3(2, 2, 2),
         rotation = 45,
         usePoly = false,
         points = {
@@ -558,9 +613,9 @@ Config.Stores = {
 
 
 Config.ClothingRooms = {
-    {
+    --[[{
         job = "police",
-        coords = vector4(454.91, -990.89, 30.69, 193.4),
+        coords = vector4(461.4, -998.0, 30.2, 193.4),
         size = vector3(4, 4, 4),
         rotation = 45,
         usePoly = false,
@@ -574,15 +629,15 @@ Config.ClothingRooms = {
             vector3(454.35513305664, -988.46459960938, 30.69),
             vector3(460.4231262207, -987.94573974609, 30.69)
         }
-    }
+    }--]]
 }
 
 
 Config.PlayerOutfitRooms = {
     -- Sample outfit room config
---[[    {
+    --[[{
         job = "police",
-        coords = vector4(287.28, -573.41, 43.16, 79.61),
+        coords = vector4(461.4, -998.0, 30.2, 0),
         size = vector3(4, 4, 4),
         rotation = 45,
         usePoly = false,
@@ -593,13 +648,13 @@ Config.PlayerOutfitRooms = {
             vector3(289.0, -574.75, 43.16)
         },
         citizenIDs = {
-            "BHH65156"
+            
         }
-    }]]--
+    }--]]
 }
 
 Config.Outfits = {
-    ["police"] = {
+    --[[["police"] = {
         ["Male"] = {
             {
                 name = "Short Sleeve",
@@ -934,7 +989,7 @@ Config.Outfits = {
                 grades = {3, 4},
             }
         }
-    }
+    }--]]
 }
 
 Config.InitialPlayerClothes = {

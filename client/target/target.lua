@@ -102,6 +102,10 @@ local function SetupStoreTargets()
             action = function()
                 TriggerEvent("illenium-appearance:client:openClothingShopMenu")
             end
+        elseif v.type == "job_clothing" then
+            action = function()
+                TriggerEvent("illenium-appearance:client:openJobClothingShopMenu")
+            end
         elseif v.type == "tattoo" then
             action = OpenTattooShop
         elseif v.type == "surgeon" then
