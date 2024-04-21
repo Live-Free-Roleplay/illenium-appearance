@@ -833,7 +833,8 @@ Config.Peds = {
                 "u_m_y_croupthief_01",
                 "u_m_y_gabriel",
                 "u_m_y_ushi",
-                "grethion"
+                "grethion",
+                "James_Falcone"
             }
         }
     }
